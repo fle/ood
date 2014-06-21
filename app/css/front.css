@@ -1,0 +1,113 @@
+body {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    color: #2C4F57;
+    background: rgba(255, 255, 255, 0.25) url('/static/img/bg.jpg');
+    width: 100%;
+}
+
+header {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0px 0px 47px -20px #C3C3C3;
+    height: 110px;
+    margin-bottom: 1em;
+}
+
+header img {
+    height: 80px;
+    margin-top: 10px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 300;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 50px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.55em;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    color:#01b5da;
+}
+
+h3 {
+    text-align: center;
+    font-size: 1.35em;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+}
+
+h4 {
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+
+ul {
+    list-style: none;
+}
+
+ul.news {
+    text-align: center;
+}
+
+.row > .col-lg-6:first-child {
+    border-right: 1px solid #CECECE;
+}
+
+.tan ul:first-child {
+    text-align: right;
+
+}
+
+#properties {
+    position: relative;
+    height: 400px;
+}
+
+#properties .teaser {
+    font-size: 0.6em;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+footer {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: -20px 0px 47px 0px #C3C3C3;
+    line-height: 40px;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    width: 1920px;
+}
+
+
+/* Override carousel */
+.carousel-caption {
+    position: static;
+    color: #000;
+    text-shadow: none;
+}
+
+.carousel-image {
+  padding-left: 0;
+  text-align: left;
+}
+
+.carousel-caption p {
+    font-size: 0.6em;
+    text-align: justify;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+    display: none;
+}
