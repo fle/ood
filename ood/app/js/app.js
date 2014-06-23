@@ -8,20 +8,54 @@ oodApp.config(function($interpolateProvider) {
 
 
 oodApp.controller('TanCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+
+  var query = '*';
+  var code = 'CNAV';
+  var URL = 'http://open.tan.fr/ewp/tempsattente.json/' + code;
   
-  $scope.slots_1 = {};
-  $scope.slots_2 = {};
+  $scope.slots_1 = [];
+  $scope.slots_2 = [];
   
   (function refresh() {
-    $http
-    .get('/tan')
-    .success(function (data, status, headers, config) {
-      $scope.slots_2 = data[1];
-      $scope.slots_1 = data[2];
-      $timeout(refresh, 30000);
-    });
-  })();
-  
+    var url, config;
+      config = {
+        params: {
+          q: "select " + query + " from json where url='" + URL + "'",
+          format: 'json'
+        }
+      };
+      url = 'http://query.yahooapis.com/v1/public/yql';
+      $http.get(url, config).then(
+        function(data){
+            items = data.data.query.results.json.json;
+
+            if (data.data.query.results === null){
+                $scope.slots_1 = [];
+                $scope.slots_2 = [];
+                return;
+            }
+            
+            for(var i=0; i < items.length; i++){
+              item = items[i];
+              slot = {
+                'terminus': item.terminus,
+                'time': item.temps,
+                'infotrafic': item.infotrafic,          
+              };
+              if (item.sens == 1 && $scope.slots_1.length < 3) {
+                $scope.slots_1.push(slot);
+              }
+              else if($scope.slots_2.length < 3) {
+                $scope.slots_2.push(slot);
+              }
+              else {
+                break;
+              }
+            }
+
+            $timeout(refresh, 30000);
+        });
+    })();
 
 }]);
 

@@ -1,3 +1,6 @@
+requirements:
+	pip install -R ../requirements.txt
+
 nodejs:
 	cd node && ./install.sh
 	cd node && nodejs/bin/npm install togeojson

@@ -1,28 +1,15 @@
 from bottle import debug, route, run, view, static_file
-from tan import TANStation
 from traffic import get_fluidity_data
-CODE_TAN = 'CNAV'
 
 
-@route('/js/:path#.+#')
+@route('/app/:path#.+#')
 def server_static(path):
-    return static_file(path, root='./app/js/')
-
-
-@route('/css/:path#.+#')
-def server_static(path):
-    return static_file(path, root='./app/css/')
+    return static_file(path, root='./app/')
 
 
 @route('/static/:path#.+#')
 def server_static(path):
     return static_file(path, root='./static/')
-
-
-@route('/tan')
-def tan():
-    tan_station = TANStation(code=CODE_TAN)
-    return tan_station.slots
 
 
 @route('/traffic')

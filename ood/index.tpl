@@ -2,9 +2,9 @@
 
   <head>
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700" rel="stylesheet" type="text/css">
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/front.css" rel="stylesheet" />
-    <link href="/css/leaflet.css" rel="stylesheet" />
+    <link href="/app/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/app/css/front.css" rel="stylesheet" />
+    <link href="/app/css/leaflet.css" rel="stylesheet" />
   </head>
 
   <body ng-app="oodApp">
@@ -95,11 +95,11 @@
     <footer>Axio Gestion, Immobilier d'entreprise. Réalisation <a href="http://fle.github.io">FL&IH</a></footer> 
 
 
-    <script src="/js/leaflet.js"></script>
-    <script src="/js/angular.min.js"></script>
-    <script src="/js/angular-leaflet-directive.min.js"></script>
-    <script src="/js/angular-bootstrap-directive.min.js"></script>
-    <script src="/js/angular-bootstrap-directive-tpls.min.js"></script>
-    <script src="/js/app.js"></script>
+    <script src="/app/js/leaflet.js"></script>
+    <script src="/app/js/angular.min.js"></script>
+    <script src="/app/js/angular-leaflet-directive.min.js"></script>
+    <script src="/app/js/angular-bootstrap-directive.min.js"></script>
+    <script src="/app/js/angular-bootstrap-directive-tpls.min.js"></script>
+    <script src="/app/js/app.js"></script>
   </body>
 </html>
