@@ -12,11 +12,6 @@ def server_static(path):
     return static_file(path, root='./static/')
 
 
-@route('/traffic')
-def traffic():
-    return get_fluidity_data()
-
-
 @route('/')
 @view('index')
 def index():

@@ -11,7 +11,7 @@ oodApp.controller('TanCtrl', ['$scope', '$http', '$timeout', function ($scope, $
 
   var query = '*';
   var code = 'CNAV';
-  var URL = 'http://open.tan.fr/ewp/tempsattente.json/' + code;
+  var URL = 'http://open.tan.fr/ewp/tempsattente.json/' + code + '?lang=fr-FR';
   
   $scope.slots_1 = [];
   $scope.slots_2 = [];
@@ -22,12 +22,18 @@ oodApp.controller('TanCtrl', ['$scope', '$http', '$timeout', function ($scope, $
         params: {
           q: "select " + query + " from json where url='" + URL + "'",
           format: 'json'
+        },
+        headers: {
+          'Accept-language': 'fr_FR'
         }
       };
       url = 'http://query.yahooapis.com/v1/public/yql';
       $http.get(url, config).then(
         function(data){
             items = data.data.query.results.json.json;
+
+            $scope.slots_1 = [];
+            $scope.slots_2 = [];
 
             if (data.data.query.results === null){
                 $scope.slots_1 = [];
@@ -138,80 +144,95 @@ oodApp.controller('PropertiesCtrl', ['$scope', '$http', '$timeout', function ($s
 
 oodApp.controller('TrafficCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
-    /* Change section color based on fluidity */
-    var leaflet_style = function(feature) {
-      var color;
-      switch (feature.properties.Couleur_TP) {
-        case '3': color = "#00aa55"; break;
-        case '4': color = "#ffff00"; break;
-        case '5': color = "#ff9900"; break;
-        case '6': color = "#ff0000"; break;
-        default: color = "#ffffff";
-      }
-      return {
-        color: color,
-        weight: 4,
-        opacity: 1
-      }
+  /* Change section color based on fluidity */
+  var leaflet_style = function(feature) {
+    var color;
+    switch (feature.properties.Couleur_TP) {
+      case '3': color = "#00aa55"; break;
+      case '4': color = "#ffff00"; break;
+      case '5': color = "#ff9900"; break;
+      case '6': color = "#ff0000"; break;
+      default: color = "#ffffff";
     }
+    return {
+      color: color,
+      weight: 4,
+      opacity: 1
+    }
+  }
 
-    /* Base map parameters */
+  /* Base map parameters */
+  angular.extend($scope, {
+      center: {
+        lat: 47.218371,
+        lng: -1.553621,
+        zoom: 13
+      },
+      defaults: {
+        scrollWheelZoom: false
+      },
+  });
+
+  /* Base map layer : static road sections */
+  $http
+  .get('/static/geojson/nantes-sections.geo.json')
+  .success(function(data, status) {
     angular.extend($scope, {
-        center: {
-          lat: 47.218371,
-          lng: -1.553621,
-          zoom: 13
-        },
-        defaults: {
-          scrollWheelZoom: false
-        },
+      geojson: {
+        data: data,
+        style: leaflet_style,
+      }  
     });
+    refresh();
+  });
 
-    /* Base map layer : static road sections */
-    $http
-    .get('/static/geojson/nantes-sections.geo.json')
-    .success(function(data, status) {
-      angular.extend($scope, {
-        geojson: {
-          data: data,
-          style: leaflet_style,
-        }  
-      });
-      refresh();
-    });
 
-    var refresh = function() {
-      $http
-      .get('/traffic')
-      .success(function (data, status, headers, config) {
-        
-        var odata = data.opendata.answer.data.Troncons;
-        $scope.timestamp = odata.Horodatage;
+  var key = '5AJ4BA535ELOG63';
+  var URL = 'http://data.nantes.fr/api/getFluiditeAxesRoutiers/1.0/' + key + '/?output=json';
+  var query = '*';
 
-        var fluidity = odata.Troncon;
-        var sections = $scope.geojson.data;
-        for(var i=0; i < fluidity.length; i++){
-          var item = fluidity[i];
-          for(var j=0; j < sections.features.length; j++){
-            var section = sections.features[j];
-            if(item.Id == section.properties.ID) {
-              sections.features[j].properties.Couleur_TP = item.Couleur_TP;
-              continue;
+  var refresh = function() {
+    var url, config;
+      config = {
+        params: {
+          q: "select " + query + " from json where url='" + URL + "'",
+          format: 'json'
+        }
+      };
+      url = 'http://query.yahooapis.com/v1/public/yql';
+      $http.get(url, config).then(
+        function(data){
+          
+          if (data.data.query.results === null){
+              $scope.geojson = {};
+              return;
+          }
+
+          var odata = data.data.query.results.opendata.answer.data.Troncons;
+          $scope.timestamp = odata.Horodatage;
+
+          var fluidity = odata.Troncon;
+          var sections = $scope.geojson.data;
+          for(var i=0; i < fluidity.length; i++){
+            var item = fluidity[i];
+            for(var j=0; j < sections.features.length; j++){
+              var section = sections.features[j];
+              if(item.Id == section.properties.ID) {
+                sections.features[j].properties.Couleur_TP = item.Couleur_TP;
+                continue;
+              }
             }
           }
-        }
 
-        $scope.geojson = {};
-        $scope.geojson = {
-          data: sections,
-          style: leaflet_style
-        };
-        
-        $timeout(refresh, 600000);
+          $scope.geojson = {};
+          $scope.geojson = {
+            data: sections,
+            style: leaflet_style
+          };
+          
+          $timeout(refresh, 600000);
+        });
 
-      });
-
-    };
-
+  };
 
 }]);
