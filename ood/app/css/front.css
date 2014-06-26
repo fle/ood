@@ -30,6 +30,17 @@ header img {
     display: inline-block;
 }
 
+footer {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: -20px 0px 47px 0px #C3C3C3;
+    line-height: 40px;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    width: 1920px;
+}
+
 h1, h2, h3, h4 {
     font-weight: 300;
     text-transform: uppercase;
@@ -96,19 +107,40 @@ ul li {
     width: 100%;
 }
 
-footer {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.75);
-    box-shadow: -20px 0px 47px 0px #C3C3C3;
-    line-height: 40px;
-    font-size: 12px;
-    position: absolute;
-    bottom: 0;
-    width: 1920px;
-}
-
 
 /* Override carousel */
+
+#properties  .carousel-inner {
+    height: 350px;
+}
+
+.carousel-inner > .item {
+  /* Override the properties for the default sliding carousel */
+  display: block;
+  position: absolute;
+  left: 0 !important;
+
+  /* Hide slides by default */
+  opacity: 0;
+
+  /* Set transition to opactity */
+  -moz-transition: 1ms ease-in-out opacity;
+  -webkit-transition: 1ms ease-in-out opacity;
+  -o-transition: 1ms ease-in-out opacity;
+  transition: 1ms ease-in-out opacity;
+}
+
+/* Active slides are visible on transition end */
+.carousel-inner > .active,
+/* Next slide is visible during transition */
+.carousel-inner > .next.left {
+    opacity: 1;
+}
+.carousel-inner > .next,
+.carousel-inner > .active.left {
+    opacity: 0;
+}
+
 .carousel-caption {
     position: static;
     color: #000;
@@ -151,6 +183,10 @@ footer {
         height: 300px;
     }
 
+    #properties  .carousel-inner {
+        height: 275px;
+    }
+
     footer {
         width: 1280px;
     }
@@ -175,6 +211,10 @@ footer {
     .angular-leaflet-map,
     #properties {
         height: 250px;
+    }
+
+    #properties  .carousel-inner {
+        height: 230px;
     }
 
     #tan ul.col-md-6 {
