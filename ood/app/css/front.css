@@ -12,12 +12,22 @@ header {
     background: rgba(255, 255, 255, 0.75);
     box-shadow: 0px 0px 47px -20px #C3C3C3;
     height: 110px;
+    line-height: 110px;
     margin-bottom: 1em;
+    font: 0/0 a;
+}
+
+header:before {
+    content: ' ';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
 }
 
 header img {
-    height: 80px;
-    margin-top: 10px;
+    height: 80%;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 h1, h2, h3, h4 {
@@ -121,7 +131,8 @@ footer {
 }
 
 .carousel-control.left,
-.carousel-control.right {
+.carousel-control.right,
+.carousel-indicators {
     display: none;
 }
 
@@ -133,11 +144,6 @@ footer {
 
     header {
         height: 60px;
-    }
-
-    header img {
-        height: 50px;
-        margin-top: 5px;
     }
 
     .angular-leaflet-map,

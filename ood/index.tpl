@@ -33,13 +33,13 @@
 
             <ul class="col-lg-6">
               <li ng-repeat="slot in slots_1">
-                [[slot.terminus]] &nbsp;&nbsp; &#8636; &nbsp;&nbsp; [[ slot.time ]]
+                [[slot.terminus]] &nbsp; &#8636; &nbsp; [[ slot.time ]]
               </li>
             </ul>
 
             <ul class="col-lg-6">
               <li ng-repeat="slot in slots_2">
-                [[ slot.time ]] &nbsp;&nbsp; &#8640; &nbsp;&nbsp; [[slot.terminus]]
+                [[ slot.time ]] &nbsp; &#8640; &nbsp; [[slot.terminus]]
               </li>
             </ul>
 
