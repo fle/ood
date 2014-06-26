@@ -24,7 +24,7 @@ h1, h2, h3, h4 {
     font-weight: 300;
     text-transform: uppercase;
     margin: 0;
-    line-height: 50px;
+    line-height: 150%;
 }
 
 h2 {
@@ -52,6 +52,10 @@ ul {
     list-style: none;
 }
 
+ul li {
+    padding: 0.25em 0;
+}
+
 ul.news {
     text-align: center;
 }
@@ -65,9 +69,13 @@ ul.news {
 
 }
 
+.angular-leaflet-map,
+#properties {
+    height: 400px;
+}
+
 #properties {
     position: relative;
-    height: 400px;
 }
 
 #properties .teaser {
@@ -95,11 +103,16 @@ footer {
     position: static;
     color: #000;
     text-shadow: none;
+    padding: 0;
 }
 
 .carousel-image {
   padding-left: 0;
   text-align: left;
+}
+
+.carousel-image img {
+    max-width: 100%;
 }
 
 .carousel-caption p {
@@ -110,4 +123,30 @@ footer {
 .carousel-control.left,
 .carousel-control.right {
     display: none;
+}
+
+@media (max-width: 1280px) {
+
+    body {
+        font-size: 20px;
+    }
+
+    header {
+        height: 60px;
+    }
+
+    header img {
+        height: 50px;
+        margin-top: 5px;
+    }
+
+    .angular-leaflet-map,
+    #properties {
+        height: 300px;
+    }
+
+    footer {
+        width: 1280px;
+    }
+
 }

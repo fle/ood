@@ -22,7 +22,7 @@
 
           <div ng-controller="TrafficCtrl">
             <h2>Se déplacer</h2>
-            <leaflet width="100%" height="400px" center="center" geojson="geojson"></leaflet>
+            <leaflet width="100%" center="center" geojson="geojson"></leaflet>
           </div>
 
 
