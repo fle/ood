@@ -18,7 +18,7 @@
 
       <div class="row">
 
-        <div class="col-lg-6">
+        <div class="col-md-6">
 
           <div ng-controller="TrafficCtrl">
             <h2>Se déplacer</h2>
@@ -29,15 +29,15 @@
 
           <h3>Tramway</h3>
 
-          <div ng-controller="TanCtrl" class="row tan">
+          <div ng-controller="TanCtrl" class="row" id="tan">
 
-            <ul class="col-lg-6">
+            <ul class="col-md-6">
               <li ng-repeat="slot in slots_1">
                 [[slot.terminus]] &nbsp; &#8636; &nbsp; [[ slot.time ]]
               </li>
             </ul>
 
-            <ul class="col-lg-6">
+            <ul class="col-md-6">
               <li ng-repeat="slot in slots_2">
                 [[ slot.time ]] &nbsp; &#8640; &nbsp; [[slot.terminus]]
               </li>
@@ -47,7 +47,7 @@
 
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-md-6">
 
           <h2>Actualités Axio Gestion</h2>
 
@@ -57,10 +57,10 @@
               <div>
                 <carousel interval="myInterval">
                   <slide ng-repeat="slide in slides" active="slide.active">
-                    <div class="carousel-image col-lg-5">
+                    <div class="carousel-image col-md-5">
                       <img ng-src="[[ slide.image ]]" />
                     </div>
-                    <div class="carousel-caption col-lg-7">
+                    <div class="carousel-caption col-md-7">
                       <h4>[[ slide.title ]]</h4>
                       <p>[[ slide.text ]]</p>
                     </div>
@@ -78,8 +78,8 @@
 
           <h3 class="clearfix">À lire sur axiogestion.fr</h3>
 
-          <div ng-controller="NewsCtrl">
-            <ul class="news">
+          <div ng-controller="NewsCtrl" id="news">
+            <ul>
               <li ng-repeat="n in news">
                 [[ n ]]
               </li>
