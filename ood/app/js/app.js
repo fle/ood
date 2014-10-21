@@ -98,9 +98,8 @@ oodApp.controller('NewsCtrl', ['$scope', '$http', '$timeout', function ($scope, 
 
 oodApp.controller('PropertiesCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
-  var URL = 'http://nantes.vos-bureaux.fr/toutes-nos-locations-a-nantes/';
-  var query = 'div.a.img.src, h2.a.content, h2.a.title';
-  var xpath = '//div[contains(@class,"fiche")]';
+  var URL = 'http://nantes.vos-bureaux.fr/locations/?sort=-modified&output=xml';
+  var query = 'annonce.photos, annonce.titre, annonce.texte';
 
 
   $scope.myInterval = 10000;
@@ -109,7 +108,7 @@ oodApp.controller('PropertiesCtrl', ['$scope', '$http', '$timeout', function ($s
     var url, config;
       config = {
         params: {
-          q: "select " + query + " from html(0,5) where url='" + URL + "' and xpath='" + xpath + "'",
+          q: "select " + query + " from xml(0,5) where url='" + URL + "'",
           format: 'json'
         }
       };
@@ -122,13 +121,13 @@ oodApp.controller('PropertiesCtrl', ['$scope', '$http', '$timeout', function ($s
                 return;
             }
 
-            var properties = data.data.query.results.div;
+            var properties = data.data.query.results.annonces;
             var slides = []
             for(var i=0; i < properties.length; i++){
               var slide = {};
-              slide.title = properties[i].h2.a.content;
-              slide.text = properties[i].h2.a.title;
-              slide.image = properties[i].div.a.img.src;
+              slide.title = properties[i].annonce.titre;
+              slide.text = properties[i].annonce.texte;
+              slide.image = properties[i].annonce.photos.photo[0];
               slides.push(slide);
             }
 
