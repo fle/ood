@@ -1,9 +1,4 @@
-import bottle
-from bottle import debug, route, run, view, static_file
-
-
-app = application = bottle.Bottle()
-
+from bottle import debug, route, run, view, static_file, default_app
 
 @route('/app/:path#.+#')
 def server_static(path):
@@ -35,6 +30,8 @@ class StripPathMiddleware(object):
 
 
 if __name__ == '__main__':
-    bottle.run(
+    run(
         host='localhost',
         port=8080)
+else:
+    application = default_app()
